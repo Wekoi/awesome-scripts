@@ -256,7 +256,7 @@ headInfo() {
 }
 
 # output field: pid, thread id(lwp), pcpu, user
-#   order by pcpu(percentage of cpu usage)
+#   order by pcpu(percentage of cpu usage)，this value reprents the cpu running time for this process / total process time,no realtime cpu usage.
 findBusyJavaThreadsByPs() {
     if [ -n "${pid}" ]; then
         local -r ps_options="-p $pid"
@@ -269,7 +269,7 @@ findBusyJavaThreadsByPs() {
     ps $ps_options -wwLo pid,lwp,pcpu,user --sort -pcpu --no-headers | head -n "${count}"
 }
 
-# top with output field: thread id, %cpu
+# top with output field: thread id, %cpu, thsi value is realtime cpu usage
 __top_threadId_cpu() {
     # 1. sort by %cpu by top option `-o %CPU`
     #    unfortunately, top version 3.2 does not support -o option(supports from top version 3.3+),

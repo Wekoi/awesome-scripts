@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-## display duplicate java classes
 # -*- coding: utf-8 -*-
+## display duplicate java classes
 
 __author__ = 'tg123'
 

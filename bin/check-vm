@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 ## check if a linux system running on a virtual machine (openvz/xen pv/uml VmWare)
 
 import sys, os

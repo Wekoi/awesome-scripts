@@ -75,7 +75,7 @@ opscripts uninstall
     
 1. [housemd](java/bin/housemd)
 
-	`housemd pid [java_home]`
+	`housemd [pid] [java_home]`
 	> 使用housemd对java程序进行运行时跟踪，支持的操作有：
 	>
 	> - 查看加载类
@@ -86,7 +86,7 @@ opscripts uninstall
 	
 1. [jargrep](java/bin/jargrep)
 
-	`jargrep "text" <path or jarfile>`
+	`jargrep "text" [path or jarfile]`
 	> 在jar包中查找文本，可查找常量字符串、类引用。
 	
 1. [findcycle](java/bin/findcycle)
@@ -96,7 +96,7 @@ opscripts uninstall
 
 1. [jvm](java/bin/jvm)	
 
-	`jvm pid`
+	`jvm [pid]`
 
 	> 执行jvm debug工具，包含对java栈、堆、线程、gc等状态的查看，支持的功能有： 
 	><pre>
@@ -133,7 +133,7 @@ opscripts uninstall
     
 1. [greys](java/bin/greys)
 
-    `greys <PID>[@IP:PORT]`
+    `greys [pid][@ip:port]`
     > 使用greys对java程序进行运行时跟踪(不传参数，需要先`greys -C pid`,再greys)。支持的操作有：
     >
     > - 查看加载类，方法信息
@@ -145,11 +145,11 @@ opscripts uninstall
     
 1. [sjk](java/bin/sjk)
 
-    `sjk <cmd> <arguments>`
+    `sjk [cmd] [arguments]`
     
     `sjk --commands`
     
-    `sjk --help <cmd>`
+    `sjk --help [cmd]`
     > 使用sjk对Java诊断、性能排查、优化工具
     >
     > - ttop:监控指定jvm进程的各个线程的cpu使用情况
@@ -161,29 +161,40 @@ opscripts uninstall
     
 1. [vjmap](java/bin/vjmap)
 
-    `vjmap.sh -all <PID> > /tmp/histo.log`
-    `vjmap.sh -old <PID> > /tmp/histo-old.lo`
-    `vjmap.sh -sur PID > /tmp/histo-sur.log`
-    > 使用唯品会的vjmap(思路来自于阿里巴巴的TBJMap)查看堆内存的分代占用信息，加强版jmap
-	  >
-	  >
-	  > 注意：vjmap在执行过程中，会完全停止应用一段时间，必须摘流量执行！！！！
-	  >
-    > 更多信息请参考: https://github.com/vipshop/vjtools/tree/master/vjmap
+    `vjmap -all [pid] > /tmp/histo.log`
+    
+    `vjmap -old [pid] > /tmp/histo-old.lo`
+    
+    `vjmap -sur [pid] > /tmp/histo-sur.log`
+	> 使用唯品会的vjmap(思路来自于阿里巴巴的TBJMap)查看堆内存的分代占用信息，加强版jmap
+	>
+	>
+	> 注意：vjmap在执行过程中，会完全停止应用一段时间，必须摘流量执行！！！！
+	>
+	> 更多信息请参考: https://github.com/vipshop/vjtools/tree/master/vjmap
 
 1. [vjdump](java/bin/vjdump)
   
-    `vjdump.sh $pid`
-    `vjdump.sh --liveheap $pid`
+    `vjdump [pid]`
+    
+    `vjdump --liveheap [pid]`
     > 使用唯品会的vjdump一次性快速dump现场信息，包括：
-    > - JVM启动参数及命令行参数: jinfo -flags $PID
-    > - thread dump数据：jstack -l $PID
-    > - sjk ttop JVM概况及繁忙线程：vjtop.sh -n 1 -d 3 $PID (需要将vjtop.sh 加入用户的PATH变量中)
-    > - jmap histo 堆对象统计数据：jmap -histo $PID & jmap -histo:live $PID
+    > 
+    > - JVM启动参数及命令行参数: jinfo -flags [pid]
+    > - thread dump数据：jstack -l [pid]
+    > - sjk ttop JVM概况及繁忙线程：sjk ttop -n 1 -ri 3 -p [pid]
+    > - jmap histo 堆对象统计数据：jmap -histo [pid] & jmap -histo:live [pid]
     > - GC日志(如果JVM有设定GC日志输出)
-    > - heap dump数据（需指定--liveheap开启）：jmap -dump:live,format=b,file=${DUMP_FILE} $PID
-
-
+    > - heap dump数据（需指定--liveheap开启）：jmap -dump:live,format=b,file=[DUMP_FILE] [pid]
+    
+1. [vjmxcli](java/bin/vjmxcli)
+  
+    `vjmxcli - [host:port] java.lang:type=Memory HeapMemoryUsage`
+    
+    `vjmxcli - [pid] gcutil [interval]`
+    > 使用唯品会的vjmxcli获取MBean属性值以及在jstat无法使用时模拟jstat -gcutil。开启jmx时可以使用主机:端口号；未开启jmx则使用pid。
+    > 
+    > 更多信息请参考: https://github.com/vipshop/vjtools/tree/master/vjmxcli
 
 ### :shell: [`Shell`相关脚本](docs/shell.md)
 
@@ -229,7 +240,7 @@ opscripts uninstall
     > 安装pip, 将pip程序封装在了文件中，可以避免网络安装pip过慢。
 1. [redis](bin/redis)
     
-    `redis ip1[:port1][,ip2[:port2]] [port] "command"``
+    `redis ip1[:port1][,ip2[:port2]] [port] "command"`
     >批量执行redis命令(需要redis-cli)
 1. [send](bin/send)
 	
@@ -237,15 +248,16 @@ opscripts uninstall
 	> 使用nc发送文件（默认8888端口），接收方可以通过浏览器下载
 1. [hex](bin/hex)
 	
-	`hex [0x]number[b]`
+	`hex [[0x]number[b]]`
 	> 计算数字的10进制、16进制及2进制文本，输入参数默认为10进制，可选16进制（0x）及二进制（b）。
 
 1. [swap](bin/swap)
 	
 	`sudo swap [-s [-r]] [-g GREP_ARG]`
 	> 查询当前服务器各个进程占用swap的情况。
-	> -s 表示对swap占用量进行排序（升序） -r 表示对swap占用量进行排序（降序），使用-r的前提是-s参数开启。 -g grep命令的封装，用于查找特定类型的进程。比如我想查找带有java的进程，可以使用sudo wtool swap -g java
-注意，使用该功能需要sudo权限
+	> -s 表示对swap占用量进行排序（升序） -r 表示对swap占用量进行排序（降序），使用-r的前提是-s参数开启。 -g grep命令的封装，用于查找特定类型的进程。比如我想查找带有java的进程，可以使用sudo swap -g java
+	>
+	> 使用该功能需要sudo权限
 
 1. [tpl/run-cmd-tpl.sh](docs/shell.md#beer-tplrun-cmd-tplsh)    
     
