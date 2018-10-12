@@ -62,7 +62,7 @@ START()
   
   # sjk ttop
   PRGDIR=`dirname "$0"`
-  TOP_SCRIPT==`cd "$PRGDIR/sjk" >/dev/null; pwd`
+  TOP_SCRIPT=${PRGDIR}/sjk
   which $TOP_SCRIPT 2>/dev/null
   if [[ $? == 0 ]]; then
     TOP_DURATION=3

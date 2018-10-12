@@ -186,6 +186,7 @@ opscripts uninstall
     > - jmap histo 堆对象统计数据：jmap -histo [pid] & jmap -histo:live [pid]
     > - GC日志(如果JVM有设定GC日志输出)
     > - heap dump数据（需指定--liveheap开启）：jmap -dump:live,format=b,file=[DUMP_FILE] [pid]
+    > 更多信息请参考: https://github.com/vipshop/vjtools/tree/master/vjdump
     
 1. [vjmxcli](java/bin/vjmxcli)
   
