@@ -21,7 +21,7 @@ print_title (){
 find_command(){
 	commands=`ls -l $1/bin |grep -v '^d' |awk '{print $9}'`
 	if [ "$commands" = "" ]; then
-		continue;
+		return
 	fi
 
 	for file in $commands ;do

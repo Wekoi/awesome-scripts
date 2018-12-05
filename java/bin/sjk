@@ -7,9 +7,7 @@ base_dir=$(dirname "$(echo "$0" | sed -e '')")
 if [ ! "$JAVA_HOME" = "" ] ;then
    java_home=$JAVA_HOME 
 fi
-if [ $# -gt 1 ];then
-    java_home=$2;
-fi
+
 if [ ! -f "$java_home/lib/tools.jar" ] && [ "$(uname)" != "Darwin"  ];then
     echo "$java_home/lib/tools.jar not found!"
     exit 1;
