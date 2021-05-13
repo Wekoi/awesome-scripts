@@ -82,7 +82,7 @@ do
     esac
 done   
 
-if [ ! -f "/proc" ]; then
+if [ ! -d "/proc" ]; then
     echo "cannot read infomation from /proc, exit!"
     exit 1
 fi
